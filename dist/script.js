@@ -970,14 +970,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function modals() {
-  var openModal = function openModal(modal) {
+  var isBtnPressed = false; // open modal
+
+  function openModal(modal) {
     modal.classList.add('show');
     modal.classList.remove('hide');
     document.body.classList.add('modal-open');
     document.body.style.marginRight = "".concat(calcScroll(), "px");
-  };
+  } //close modal
 
-  var closeAllModals = function closeAllModals() {
+
+  function closeAllModals() {
     var windows = document.querySelectorAll('[data-modal]');
     windows.forEach(function (item) {
       item.classList.remove('show');
@@ -985,7 +988,34 @@ function modals() {
     });
     document.body.classList.remove('modal-open');
     document.body.style.marginRight = '0px';
-  };
+  } //hide element
+
+
+  function hideElement(element) {
+    element.remove();
+  } //show modal by time
+
+
+  function showModalByTime(modalSelector, time) {
+    setTimeout(function () {
+      var modal = document.querySelector(modalSelector); //check whether another modal is open
+
+      if (document.body.classList.contains('modal-open') === false) {
+        openModal(modal);
+      }
+    }, time);
+  }
+
+  function openByScroll(selector) {
+    window.addEventListener('scroll', function () {
+      var scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight); // check support of browser
+
+      if (!isBtnPressed && window.pageYOffset + document.documentElement.clientHeight >= scrollHeight) {
+        document.querySelector(selector).click(); //
+      }
+    });
+  } //calculating the width of the scroll bar
+
 
   var calcScroll = function calcScroll() {
     var div = document.createElement('div');
@@ -997,49 +1027,53 @@ function modals() {
     var scrollWidth = div.offsetWidth - div.clientWidth;
     div.remove();
     return scrollWidth;
-  };
+  }; // the main functionality
+
 
   function useModals(modalSelector, triggerSelector, closeSelector) {
-    var closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+    var isCloseClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+    var isHideElement = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
     var modal = document.querySelector(modalSelector);
     var triggers = document.querySelectorAll(triggerSelector);
     var closeBtns = document.querySelectorAll(closeSelector);
+    modal.classList.add('animated', 'fadeIn'); //added animation for modals
+    //opening a modal on click on trigger
+
     triggers.forEach(function (trigger) {
       trigger.addEventListener('click', function (e) {
         if (e.target) {
           e.preventDefault();
         }
 
+        if (isHideElement) {
+          hideElement(trigger);
+        }
+
+        isBtnPressed = true;
         openModal(modal);
       });
-    });
+    }); //closing a modal on click on close btn
+
     closeBtns.forEach(function (closeBtn) {
       closeBtn.addEventListener('click', function () {
         closeAllModals();
       });
-    });
+    }); //closing a modal on click on the substrate
+
     modal.addEventListener('click', function (e) {
       var target = e.target;
 
-      if (target === modal && closeClickOverlay) {
+      if (target === modal && isCloseClickOverlay) {
         closeAllModals();
       }
     });
   }
 
-  function showModalByTime(modalSelector, time) {
-    setTimeout(function () {
-      var modal = document.querySelector(modalSelector);
-
-      if (document.body.classList.contains('modal-open') === false) {
-        openModal(modal);
-      }
-    }, time);
-  }
-
   useModals('.popup-design', '.button-design', '.popup-close');
   useModals('.popup-consultation', '.button-consultation', '.popup-close');
+  useModals('.popup-gift', '.fixed-gift', '.popup-close', true, true);
   showModalByTime('.popup-consultation', 60000);
+  openByScroll('.fixed-gift');
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
