@@ -33,7 +33,7 @@ function modals() {
         return scrollWidth;
     }
 
-    function useModals(modalSelector, triggerSelector, closeSelector) {
+    function useModals(modalSelector, triggerSelector, closeSelector, closeClickOverlay = true) {
         const modal = document.querySelector(modalSelector);
         const triggers = document.querySelectorAll(triggerSelector);
         const closeBtns = document.querySelectorAll(closeSelector);
@@ -55,14 +55,27 @@ function modals() {
 
         modal.addEventListener('click', e => {
             const target = e.target;
-            if (target) {
+            if (target === modal && closeClickOverlay) {
                 closeAllModals();
             }
         })
     }
 
+    function showModalByTime(modalSelector, time) {
+        setTimeout(() => {
+            const modal = document.querySelector(modalSelector);
+
+            if (document.body.classList.contains('modal-open') === false) {
+                openModal(modal);
+            }
+        }, time);
+    }
+
+
     useModals('.popup-design' ,'.button-design', '.popup-close');
     useModals('.popup-consultation' ,'.button-consultation', '.popup-close');
+
+    showModalByTime('.popup-consultation', 60000);
 }
 
 export default modals;

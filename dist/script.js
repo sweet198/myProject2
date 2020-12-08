@@ -931,10 +931,28 @@ module.exports = g;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
+/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
+
 
 window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_1__["default"])();
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/forms.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/forms.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function forms() {}
+
+/* harmony default export */ __webpack_exports__["default"] = (forms);
 
 /***/ }),
 
@@ -982,6 +1000,7 @@ function modals() {
   };
 
   function useModals(modalSelector, triggerSelector, closeSelector) {
+    var closeClickOverlay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
     var modal = document.querySelector(modalSelector);
     var triggers = document.querySelectorAll(triggerSelector);
     var closeBtns = document.querySelectorAll(closeSelector);
@@ -1002,14 +1021,25 @@ function modals() {
     modal.addEventListener('click', function (e) {
       var target = e.target;
 
-      if (target) {
+      if (target === modal && closeClickOverlay) {
         closeAllModals();
       }
     });
   }
 
+  function showModalByTime(modalSelector, time) {
+    setTimeout(function () {
+      var modal = document.querySelector(modalSelector);
+
+      if (document.body.classList.contains('modal-open') === false) {
+        openModal(modal);
+      }
+    }, time);
+  }
+
   useModals('.popup-design', '.button-design', '.popup-close');
   useModals('.popup-consultation', '.button-consultation', '.popup-close');
+  showModalByTime('.popup-consultation', 60000);
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
