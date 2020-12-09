@@ -65,11 +65,11 @@ const sliders = (sliderSelector, slides, dir, time, prev, next) => {
         }
     }
 
-    slider.addEventListener('mouseover', () => {
+    slider.addEventListener('mouseenter', () => {
         clearInterval(isPaused)
     });
 
-    slider.addEventListener('mouseout', () => {
+    slider.addEventListener('mouseleave', () => {
         activateAnimation();
     });
 }
