@@ -30,6 +30,11 @@ const sliders = (sliderSelector, slides, dir, time, prev, next) => {
         showSlides(slideIndex += n);
     }
 
+    function showNextSlide(removeAnimateClass, addAnimateClass) {
+        items[slideIndex -1].classList.remove(removeAnimateClass);
+        items[slideIndex -1].classList.add(addAnimateClass);
+    }
+
     // check availability of the buttons
     try {
         const prevBtn = document.querySelector(prev);
@@ -37,14 +42,12 @@ const sliders = (sliderSelector, slides, dir, time, prev, next) => {
 
         prevBtn.addEventListener('click', () => {
             plusSlides(-1);
-            items[slideIndex -1].classList.remove('slideInLeft');
-            items[slideIndex -1].classList.add('slideInRight');
+            showNextSlide('slideInRight', 'slideInLeft');
         });
 
         nextBtn.addEventListener('click', () => {
             plusSlides(1);
-            items[slideIndex -1].classList.remove('slideInRight');
-            items[slideIndex -1].classList.add('slideInLeft');
+            showNextSlide('slideInLeft', 'slideInRight');
         });
     } catch (e) {
 
@@ -55,12 +58,12 @@ const sliders = (sliderSelector, slides, dir, time, prev, next) => {
             isPaused = setInterval(() => {
                 plusSlides(1);
                 items[slideIndex -1].classList.add('slideInDown');
+                // items[slideIndex -1].classList.remove('slideInUp');
             }, time);
         } else {
             isPaused = setInterval(() => {
                 plusSlides(1);
-                items[slideIndex -1].classList.remove('slideInRight');
-                items[slideIndex -1].classList.add('slideInLeft');
+                showNextSlide('slideInLeft', 'slideInRight');
             }, time);
         }
     }
