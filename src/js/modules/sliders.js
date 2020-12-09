@@ -57,8 +57,7 @@ const sliders = (sliderSelector, slides, dir, time, prev, next) => {
         if (dir === 'vertical') {
             isPaused = setInterval(() => {
                 plusSlides(1);
-                items[slideIndex -1].classList.add('slideInDown');
-                // items[slideIndex -1].classList.remove('slideInUp');
+                showNextSlide('slideInUp', 'slideInDown');
             }, time);
         } else {
             isPaused = setInterval(() => {
@@ -67,6 +66,8 @@ const sliders = (sliderSelector, slides, dir, time, prev, next) => {
             }, time);
         }
     }
+
+    activateAnimation();
 
     slider.addEventListener('mouseenter', () => {
         clearInterval(isPaused)
