@@ -4726,35 +4726,39 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var showMoreStyles = function showMoreStyles(trigger, wrapper) {
-  var btn = document.querySelector(trigger);
+  var btn = document.querySelector(trigger); // get from html
+
   /*
-      btn.addEventListener('click', () => {
-          cards.forEach(card => {
-             card.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs');
-             card.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
-          });
-  
-          // btn.style.display = 'none';
-          btn.remove();
-      });
-  
+  btn.addEventListener('click', () => {
       cards.forEach(card => {
-          card.classList.add('animated', 'fadeInUp');
-      })*/
+         card.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs');
+         card.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
+      });
+        // btn.style.display = 'none';
+      btn.remove();
+  });
+    cards.forEach(card => {
+      card.classList.add('animated', 'fadeInUp');
+  })*/
+  //get from server
 
   btn.addEventListener('click', function () {
-    Object(_services_requests__WEBPACK_IMPORTED_MODULE_3__["getResource"])('http://localhost:3000/styles').then(function (res) {
-      return createCards(res);
+    Object(_services_requests__WEBPACK_IMPORTED_MODULE_3__["getResource"])('assets/db.json').then(function (res) {
+      return createCards(res.styles);
     }).catch(function (error) {
       return console.log(error);
     });
+    this.remove();
   });
 
   function createCards(response) {
-    response.forEach(function (item) {
+    response.forEach(function (_ref) {
+      var src = _ref.src,
+          title = _ref.title,
+          link = _ref.link;
       var card = document.createElement('div');
       card.classList.add('animated', 'fadeInUp', 'col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
-      card.innerHTML = "\n                <div class=\"styles-block\">\n                    <img src=".concat(item.src, " alt=\"style\">\n                    <h4>").concat(item.title, "</h4>\n                    <a href=\"").concat(item.link, "\">\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435</a>\n                </div>\n            ");
+      card.innerHTML = "\n                <div class=\"styles-block\">\n                    <img src=".concat(src, " alt=\"style\">\n                    <h4>").concat(title, "</h4>\n                    <a href=\"").concat(link, "\">\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435</a>\n                </div>\n            ");
       document.querySelector(wrapper).appendChild(card);
     });
   } // <div class="hidden-lg hidden-md hidden-sm hidden-xs styles-2">

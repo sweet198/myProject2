@@ -2,7 +2,9 @@ import {getResource} from '../services/requests';
 
 const showMoreStyles = (trigger, wrapper) => {
     const btn = document.querySelector(trigger);
-/*
+
+    // get from html
+    /*
     btn.addEventListener('click', () => {
         cards.forEach(card => {
            card.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs');
@@ -17,21 +19,23 @@ const showMoreStyles = (trigger, wrapper) => {
         card.classList.add('animated', 'fadeInUp');
     })*/
 
-    btn.addEventListener('click', () => {
-        getResource('http://localhost:3000/styles')
-            .then(res => createCards(res))
+    //get from server
+    btn.addEventListener('click', function() {
+        getResource('assets/db.json')
+            .then(res => createCards(res.styles))
             .catch(error => console.log(error));
+        this.remove();
     });
 
     function createCards(response) {
-        response.forEach(item => {
+        response.forEach(({src, title, link}) => {
             let card = document.createElement('div');
             card.classList.add('animated', 'fadeInUp', 'col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1');
             card.innerHTML = `
                 <div class="styles-block">
-                    <img src=${item.src} alt="style">
-                    <h4>${item.title}</h4>
-                    <a href="${item.link}">Подробнее</a>
+                    <img src=${src} alt="style">
+                    <h4>${title}</h4>
+                    <a href="${link}">Подробнее</a>
                 </div>
             `;
 
