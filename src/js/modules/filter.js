@@ -1,19 +1,8 @@
 const filter = () => {
     const menu = document.querySelector('.portfolio-menu');
     const items = menu.querySelectorAll('li');
-    const btnAll = menu.querySelector('.all');
-    const btnLovers = menu.querySelector('.lovers');
-    const btnChef = menu.querySelector('.chef');
-    const btnGirl = menu.querySelector('.girl');
-    const btnGuy = menu.querySelector('.guy');
-    const btnGrandmother = menu.querySelector('.grandmother');
-    const btnGranddad = menu.querySelector('.granddad');
     const wrapper = document.querySelector('.portfolio-wrapper');
     const markAll = wrapper.querySelectorAll('.all');
-    const markLovers = wrapper.querySelectorAll('.lovers');
-    const markChef = wrapper.querySelectorAll('.chef');
-    const markGirl = wrapper.querySelectorAll('.girl');
-    const markGuy = wrapper.querySelectorAll('.guy');
     const no = document.querySelector('.portfolio-no');
 
     const typeFilter = (markType) => {
@@ -43,40 +32,19 @@ const filter = () => {
         activeBtn.classList.add('active');
     };
 
+    items.forEach(item => {
+        item.addEventListener('click', e => {
+            const target = e.target;
+            const targetClass = target.classList[0];
 
-    btnAll.addEventListener('click', () => {
-        makeActive(btnAll);
-        typeFilter(markAll);
-    });
+            makeActive(target);
 
-    btnLovers.addEventListener('click', () => {
-        makeActive(btnLovers);
-        typeFilter(markLovers);
-    });
-
-    btnChef.addEventListener('click', () => {
-        makeActive(btnChef);
-        typeFilter(markChef);
-    });
-
-    btnGirl.addEventListener('click', () => {
-        makeActive(btnGirl);
-        typeFilter(markGirl);
-    });
-
-    btnGuy.addEventListener('click', () => {
-        makeActive(btnGuy);
-        typeFilter(markGuy);
-    });
-
-    btnGrandmother.addEventListener('click', () => {
-        makeActive(btnGrandmother);
-        typeFilter();
-    });
-
-    btnGranddad.addEventListener('click', () => {
-        makeActive(btnGranddad);
-        typeFilter();
+            if (targetClass == 'grandmother' || targetClass == 'granddad') {
+                typeFilter();
+            } else {
+                typeFilter(wrapper.querySelectorAll(`.${targetClass}`));
+            }
+        });
     });
 }
 

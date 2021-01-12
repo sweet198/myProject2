@@ -4463,19 +4463,8 @@ __webpack_require__.r(__webpack_exports__);
 var filter = function filter() {
   var menu = document.querySelector('.portfolio-menu');
   var items = menu.querySelectorAll('li');
-  var btnAll = menu.querySelector('.all');
-  var btnLovers = menu.querySelector('.lovers');
-  var btnChef = menu.querySelector('.chef');
-  var btnGirl = menu.querySelector('.girl');
-  var btnGuy = menu.querySelector('.guy');
-  var btnGrandmother = menu.querySelector('.grandmother');
-  var btnGranddad = menu.querySelector('.granddad');
   var wrapper = document.querySelector('.portfolio-wrapper');
   var markAll = wrapper.querySelectorAll('.all');
-  var markLovers = wrapper.querySelectorAll('.lovers');
-  var markChef = wrapper.querySelectorAll('.chef');
-  var markGirl = wrapper.querySelectorAll('.girl');
-  var markGuy = wrapper.querySelectorAll('.guy');
   var no = document.querySelector('.portfolio-no');
 
   var typeFilter = function typeFilter(markType) {
@@ -4504,33 +4493,18 @@ var filter = function filter() {
     activeBtn.classList.add('active');
   };
 
-  btnAll.addEventListener('click', function () {
-    makeActive(btnAll);
-    typeFilter(markAll);
-  });
-  btnLovers.addEventListener('click', function () {
-    makeActive(btnLovers);
-    typeFilter(markLovers);
-  });
-  btnChef.addEventListener('click', function () {
-    makeActive(btnChef);
-    typeFilter(markChef);
-  });
-  btnGirl.addEventListener('click', function () {
-    makeActive(btnGirl);
-    typeFilter(markGirl);
-  });
-  btnGuy.addEventListener('click', function () {
-    makeActive(btnGuy);
-    typeFilter(markGuy);
-  });
-  btnGrandmother.addEventListener('click', function () {
-    makeActive(btnGrandmother);
-    typeFilter();
-  });
-  btnGranddad.addEventListener('click', function () {
-    makeActive(btnGranddad);
-    typeFilter();
+  items.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      var target = e.target;
+      var targetClass = target.classList[0];
+      makeActive(target);
+
+      if (targetClass == 'grandmother' || targetClass == 'granddad') {
+        typeFilter();
+      } else {
+        typeFilter(wrapper.querySelectorAll(".".concat(targetClass)));
+      }
+    });
   });
 };
 
