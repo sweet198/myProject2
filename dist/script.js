@@ -4486,25 +4486,22 @@ var filter = function filter() {
     });
   };
 
-  var makeActive = function makeActive(activeBtn) {
-    items.forEach(function (item) {
-      item.classList.remove('active');
-    });
-    activeBtn.classList.add('active');
-  };
+  menu.addEventListener('click', function (e) {
+    var target = e.target;
 
-  items.forEach(function (item) {
-    item.addEventListener('click', function (e) {
-      var target = e.target;
+    if (target && target.tagName === 'LI') {
+      items.forEach(function (item) {
+        return item.classList.remove('active');
+      });
+      target.classList.add('active');
       var targetClass = target.classList[0];
-      makeActive(target);
 
       if (targetClass == 'grandmother' || targetClass == 'granddad') {
         typeFilter();
       } else {
         typeFilter(wrapper.querySelectorAll(".".concat(targetClass)));
       }
-    });
+    }
   });
 };
 

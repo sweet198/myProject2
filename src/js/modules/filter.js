@@ -25,26 +25,21 @@ const filter = () => {
         });
     };
 
-    const makeActive = (activeBtn) => {
-        items.forEach(item => {
-            item.classList.remove('active');
-        });
-        activeBtn.classList.add('active');
-    };
+    menu.addEventListener('click', e => {
+        let target = e.target;
 
-    items.forEach(item => {
-        item.addEventListener('click', e => {
-            const target = e.target;
-            const targetClass = target.classList[0];
+        if (target && target.tagName === 'LI') {
+            items.forEach(item => item.classList.remove('active'));
+            target.classList.add('active');
 
-            makeActive(target);
+            let targetClass = target.classList[0];
 
             if (targetClass == 'grandmother' || targetClass == 'granddad') {
                 typeFilter();
             } else {
                 typeFilter(wrapper.querySelectorAll(`.${targetClass}`));
             }
-        });
+        }
     });
 }
 
