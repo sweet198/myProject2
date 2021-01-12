@@ -42,14 +42,6 @@ const showMoreStyles = (trigger, wrapper) => {
             document.querySelector(wrapper).appendChild(card);
         });
     }
-
-// <div class="hidden-lg hidden-md hidden-sm hidden-xs styles-2">
-//         <div class=styles-block>
-//         <img src=assets/img/styles-5.jpg alt>
-//     <h4>Пастелью</h4>
-//     <a href="#">Подробнее</a>
-//         </div>
-//         </div>
 };
 
 export default showMoreStyles;

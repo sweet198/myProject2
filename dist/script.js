@@ -4351,6 +4351,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInputs */ "./src/js/modules/checkTextInputs.js");
 /* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
 /* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
+/* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/filter */ "./src/js/modules/filter.js");
+
 
 
 
@@ -4370,6 +4372,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name="message"]');
   Object(_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__["default"])('.button-styles', '#styles .row');
   Object(_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.promocode', '.calc-price');
+  Object(_modules_filter__WEBPACK_IMPORTED_MODULE_7__["default"])();
 });
 
 /***/ }),
@@ -4441,6 +4444,97 @@ var checkTextInputs = function checkTextInputs(selector) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (checkTextInputs);
+
+/***/ }),
+
+/***/ "./src/js/modules/filter.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/filter.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var filter = function filter() {
+  var menu = document.querySelector('.portfolio-menu');
+  var items = menu.querySelectorAll('li');
+  var btnAll = menu.querySelector('.all');
+  var btnLovers = menu.querySelector('.lovers');
+  var btnChef = menu.querySelector('.chef');
+  var btnGirl = menu.querySelector('.girl');
+  var btnGuy = menu.querySelector('.guy');
+  var btnGrandmother = menu.querySelector('.grandmother');
+  var btnGranddad = menu.querySelector('.granddad');
+  var wrapper = document.querySelector('.portfolio-wrapper');
+  var markAll = wrapper.querySelectorAll('.all');
+  var markLovers = wrapper.querySelectorAll('.lovers');
+  var markChef = wrapper.querySelectorAll('.chef');
+  var markGirl = wrapper.querySelectorAll('.girl');
+  var markGuy = wrapper.querySelectorAll('.guy');
+  var no = document.querySelector('.portfolio-no');
+
+  var typeFilter = function typeFilter(markType) {
+    markAll.forEach(function (mark) {
+      mark.style.display = 'none';
+      mark.classList.remove('animated', 'fadeIn');
+      no.style.display = 'none';
+      no.classList.remove('animated', 'fadeIn');
+
+      if (markType) {
+        markType.forEach(function (mark) {
+          mark.style.display = 'block';
+          mark.classList.add('animated', 'fadeIn');
+        });
+      } else {
+        no.style.display = 'block';
+        no.classList.add('animated', 'fadeIn');
+      }
+    });
+  };
+
+  var makeActive = function makeActive(activeBtn) {
+    items.forEach(function (item) {
+      item.classList.remove('active');
+    });
+    activeBtn.classList.add('active');
+  };
+
+  btnAll.addEventListener('click', function () {
+    makeActive(btnAll);
+    typeFilter(markAll);
+  });
+  btnLovers.addEventListener('click', function () {
+    makeActive(btnLovers);
+    typeFilter(markLovers);
+  });
+  btnChef.addEventListener('click', function () {
+    makeActive(btnChef);
+    typeFilter(markChef);
+  });
+  btnGirl.addEventListener('click', function () {
+    makeActive(btnGirl);
+    typeFilter(markGirl);
+  });
+  btnGuy.addEventListener('click', function () {
+    makeActive(btnGuy);
+    typeFilter(markGuy);
+  });
+  btnGrandmother.addEventListener('click', function () {
+    makeActive(btnGrandmother);
+    typeFilter();
+  });
+  btnGranddad.addEventListener('click', function () {
+    makeActive(btnGranddad);
+    typeFilter();
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (filter);
 
 /***/ }),
 
@@ -4805,14 +4899,7 @@ var showMoreStyles = function showMoreStyles(trigger, wrapper) {
       card.innerHTML = "\n                <div class=\"styles-block\">\n                    <img src=".concat(src, " alt=\"style\">\n                    <h4>").concat(title, "</h4>\n                    <a href=\"").concat(link, "\">\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435</a>\n                </div>\n            ");
       document.querySelector(wrapper).appendChild(card);
     });
-  } // <div class="hidden-lg hidden-md hidden-sm hidden-xs styles-2">
-  //         <div class=styles-block>
-  //         <img src=assets/img/styles-5.jpg alt>
-  //     <h4>Пастелью</h4>
-  //     <a href="#">Подробнее</a>
-  //         </div>
-  //         </div>
-
+  }
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (showMoreStyles);
