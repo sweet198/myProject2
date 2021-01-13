@@ -1,35 +1,27 @@
-const sizes = () => {
-    const sizesBlocks = document.querySelectorAll('.sizes-block');
+const sizes = (imgSelector) => {
+    const sizesBlocks = document.querySelectorAll(imgSelector);
 
+    const showImg = (block) => {
+        const img = block.querySelector('img');
+        img.src = img.src.slice(0, -4) + '-1.png';
+        block.querySelectorAll('p:not(.sizes-hit)').forEach(p => {
+            p.style.display = 'none';
+        });
+    }
 
-    sizesBlocks.forEach((block, index) => {
-       block.addEventListener('mouseenter', () => {
-           console.dir(block.children);
-           block.children.forEach(child => {
-               if (child.tagName == 'P' && child.className !== 'sizes-hit') {
-                   child.style.display = 'none';
-               }
+    const hideImg = (block) => {
+        const img = block.querySelector('img');
+        img.src = img.src.slice(0, -6) + '.png';
 
-               if (child.tagName == 'IMG') {
-                   child.src = `assets/img/sizes-${index + 1}-1.png`
-               }
-           })
-       })
+        block.querySelectorAll('p:not(.sizes-hit)').forEach(p => {
+            p.style.display = 'block';
+        });
+    }
 
-        block.addEventListener('mouseleave', () => {
-            console.dir(block.children);
-            block.children.forEach(child => {
-                if (child.tagName == 'P') {
-                    child.style.display = 'block';
-                }
-
-                if (child.tagName == 'IMG') {
-                    child.src = `assets/img/sizes-${index + 1}.png`
-                }
-            })
-        })
+    sizesBlocks.forEach(block => {
+        block.addEventListener('mouseenter', () => showImg(block));
+        block.addEventListener('mouseleave', () => hideImg(block));
     });
-
 }
 
 export default sizes;
