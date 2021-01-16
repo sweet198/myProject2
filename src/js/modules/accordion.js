@@ -19,7 +19,8 @@ const accordion = (headingSelector, blockSelector) => {
         });
     });*/
 
-    const btns = document.querySelectorAll(headingSelector);
+    // first variant from course
+    /*const btns = document.querySelectorAll(headingSelector);
     const blocks = document.querySelectorAll(blockSelector);
 
     blocks.forEach(block => {
@@ -35,6 +36,22 @@ const accordion = (headingSelector, blockSelector) => {
                 this.classList.add('active', 'active-style');
             }
         });
+    });*/
+    //second variant from course
+
+    const btns = document.querySelectorAll(headingSelector);
+
+    btns.forEach(btn => {
+       btn.addEventListener('click', function () {
+           this.classList.toggle('active-style');
+           this.nextElementSibling.classList.toggle('active-content');
+
+           if (this.classList.contains('active-style')) {
+               this.nextElementSibling.style.maxHeight = this.nextElementSibling.scrollHeight + 80 + 'px';
+           } else {
+               this.nextElementSibling.style.maxHeight = '0px';
+           }
+       });
     });
 }
 
