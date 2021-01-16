@@ -4454,21 +4454,34 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var accordion = function accordion(headingSelector, blockSelector) {
-  var headings = document.querySelectorAll('.accordion-heading');
-  var blocks = document.querySelectorAll('.accordion-block');
-
-  var hideBlocks = function hideBlocks() {
-    blocks.forEach(function (block) {
-      block.style.display = 'none';
-    });
-  };
-
-  hideBlocks();
-  headings.forEach(function (heading, index) {
-    heading.addEventListener('click', function (e) {
-      hideBlocks();
-      blocks[index].classList.add('animated', 'fadeIn');
-      blocks[index].style.display = 'block';
+  /* const headings = document.querySelectorAll('.accordion-heading');
+   const blocks = document.querySelectorAll('.accordion-block');
+     const hideBlocks = () => {
+       blocks.forEach(block => {
+           block.style.display = 'none';
+       })
+   }
+     hideBlocks();
+     headings.forEach((heading, index) => {
+       heading.addEventListener('click', e => {
+             hideBlocks();
+           blocks[index].classList.add('animated', 'fadeIn');
+           blocks[index].style.display = 'block';
+       });
+   });*/
+  var btns = document.querySelectorAll(headingSelector);
+  var blocks = document.querySelectorAll(blockSelector);
+  blocks.forEach(function (block) {
+    block.classList.add('animated', 'fadeIn');
+  });
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (!this.classList.contains('active')) {
+        btns.forEach(function (btn) {
+          btn.classList.remove('active', 'active-style');
+        });
+        this.classList.add('active', 'active-style');
+      }
     });
   });
 };
